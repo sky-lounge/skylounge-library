@@ -1,3 +1,4 @@
 ---
-jar_path: # Path to the jar file
-jvm_version: # The JVM Version to use
+params:
+  jar_path: # Path to the jar file
+  jvm_version: # The JVM Version to use

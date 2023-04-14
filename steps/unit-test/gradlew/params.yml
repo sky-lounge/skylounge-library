@@ -1,2 +1,3 @@
 ---
-jvm_version: # The JVM Version to use
+params:
+  jvm_version: # The JVM Version to use
