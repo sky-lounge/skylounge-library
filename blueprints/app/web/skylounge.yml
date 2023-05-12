@@ -9,11 +9,13 @@ workflows:
             uri: # Enter the URI to the step definition used to run unit tests for your application. Example: sky-lounge/public-skylounge-library/steps/unit-test/java/gradlew/unit-test.yml
           - step: build-container-image
             uri: # Enter the URI to the step definition used to build the container image for your application. Example: sky-lounge/public-skylounge-library/steps/build/pack/java/gradlew/build.yml
+          - step:
+        params:
+          build_paths: # An array of paths which trigger the build job on change. Example: ["src/**", "build.gradle", "service.yaml"]
       - job: deploy
       - job: integration-test
         uri: # The URI to your integration tests. Example: sky-lounge/hello-app/skylounge/integration-test.yml
     params:
-      build_paths: # An array of paths which trigger the build job on change. Example: ['src/**', 'build.gradle', 'service.yaml']
       gcp_project: # The Google Cloud project name where the application is deployed. Example: skylounge-dev
       cloud_run_domain: # The domain to configure for your application. Example: dashboard.skylounge.dev
   - workflow: production
@@ -21,10 +23,12 @@ workflows:
       - job: deploy
     params:
       gcp_project: # The Google Cloud project name where the application is deployed. Example: skylounge-prod
-  - workflow: daily-scans
+  - workflow: scans
     jobs:
       - job: owasp-zap-full-scan
         params:
           endpoint_to_scan: # The production endpoint to scan. Example: https://dashboard.skylounge.io
+    params:
+      cron_schedule: # Schedule a workflow to run at specific UTC times using POSIX cron syntax: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html#tag_20_25_07. Example: "0 2 * * *" to run everyday at 2AM
 params:
   registry_url: # The artifact registry url where container images are stored. Example: us-central1-docker.pkg.dev/skylounge-common/skylounge-registry

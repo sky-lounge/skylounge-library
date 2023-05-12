@@ -1,0 +1,6 @@
+steps:
+  - name: Push container image
+    run: |
+      registry_base_url=$(cut -d/ -f 1 <<< $REGISTRY)
+      gcloud auth configure-docker $registry_base_url
+      docker push ${{ env.IMAGE_NAME }}

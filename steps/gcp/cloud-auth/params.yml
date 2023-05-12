@@ -1,0 +1,2 @@
+params:
+  credentials_json_secret_string: # The string used to fetch the credentials.json file. Example: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}" to fecth from GitHub Secrets

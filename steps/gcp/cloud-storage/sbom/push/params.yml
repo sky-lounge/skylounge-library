@@ -1,0 +1,2 @@
+params:
+  sbom_bucket: # The Google Cloud Storage bucket to upload to. Example: sboms.skylounge.io

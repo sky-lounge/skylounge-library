@@ -1,0 +1,11 @@
+steps:
+  - name: Upload SBOMs
+    uses: "google-github-actions/upload-cloud-storage@v1"
+    with:
+      path: "/tmp/sbom/"
+      destination: "${BUCKET_NAME}/${APPLICATION_NAME}/${SHA}/"
+      glob: "**/*.json"
+    env:
+      APPLICATION_NAME: "${{ github.event.repository.name }}"
+      BUCKET_NAME: ((sbom_bucket))
+      SHA: "${{ github.sha }}"

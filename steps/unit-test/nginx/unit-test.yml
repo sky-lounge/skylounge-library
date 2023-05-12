@@ -1,0 +1,8 @@
+---
+steps:
+  - name: Unit test
+    run: |
+      if [ ! -f "nginx.conf" ]; then
+          echo "Missing nginx.conf"
+          exit 1
+      fi

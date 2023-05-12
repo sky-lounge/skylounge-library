@@ -1,8 +1,8 @@
 ---
-name: Daily Scans
+name: Scheduled Scans
 on:
   schedule:
-    - cron: "0 2 * * *" # Run everyday at 2AM
+    - cron: ((cron_schedule)) "0 2 * * *" # Run everyday at 2AM
   workflow_dispatch: # allow manual trigger
 jobs:
   owasp-zap-full-scan:
@@ -10,12 +10,12 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
-      - name: Run OWASP Zap full scan
+      - name: OWASP Zap Full Scan
         uses: zaproxy/action-full-scan@v0.4.0
         id: scan
         with:
           target: ((endpoint_to_scan))
           rules_file_name: skylounge/owasp/rules.cfg
-          issue_title: "Daily Scans - OWASP Full Scan - ${{ github.run_number }}"
+          issue_title: "OWASP Full Scan - ${{ github.run_number }}"
           token: ${{ github.token }}
           fail_action: false
