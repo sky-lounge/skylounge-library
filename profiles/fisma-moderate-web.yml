@@ -7,13 +7,13 @@ workflows:
     jobs:
       unit-test:
         - steps:
-          unit-test:
-            - label: gradlew
-              uri: sky-lounge/skylounge-library/steps/unit-test/gradlew/unit-test.yml
-              params:
-                jvm_version: 17
-            - label: nginx
-              uri: sky-lounge/skylounge-library/steps/unit-test/nginx/unit-test.yml
+            unit-test:
+              - label: gradlew
+                uri: sky-lounge/skylounge-library/steps/unit-test/gradlew/unit-test.yml
+                params:
+                  jvm_version: 17
+              - label: nginx
+                uri: sky-lounge/skylounge-library/steps/unit-test/nginx/unit-test.yml
       build:
         - steps:
             cloud-auth:
