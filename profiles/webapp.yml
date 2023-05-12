@@ -1,0 +1,21 @@
+---
+uri: sky-lounge/public-skylounge-library/blueprints/gcp/cloud-run/blueprint.yml
+params:
+  registry_url: us-central1-docker.pkg.dev/skylounge-common/skylounge-registry
+workflows:
+  development:
+    jobs:
+      build:
+        - steps:
+            build-container-image:
+              - label: gradlew
+                uri: sky-lounge/public-skylounge-library/steps/pack/gradlew/build.yml
+                params:
+                  jvm_version: 17
+              - label: nginx
+                uri: sky-lounge/public-skylounge-library/steps/pack/nginx/build.yml
+    params:
+      gcp_project: skyloungedev
+  production:
+    params:
+      gcp_project: skyloungeio
