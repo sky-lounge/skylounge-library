@@ -5,6 +5,7 @@ steps:
   - name: Pack build
     run: |
       set -x
+      mkdir -p /tmp/sbom
       pack build \
         ${{ env.IMAGE_NAME }} \
         --builder paketobuildpacks/builder:base \
