@@ -33,7 +33,7 @@ workflows:
                 uri: sky-lounge/skylounge-library/steps/gcp/artifact-registry/push/push.yml
             upload-sboms:
               - label: gcp
-                uri: sky-lounge/skylounge-library/steps/gcp/cloud-storage/push/push.yml
+                uri: sky-lounge/skylounge-library/steps/gcp/cloud-storage/sbom/push/push.yml
                 params:
                   sbom_bucket: sboms.skylounge.io
   #   params:
