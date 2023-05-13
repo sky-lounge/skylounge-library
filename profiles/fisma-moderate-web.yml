@@ -30,7 +30,7 @@ workflows:
                 uri: sky-lounge/skylounge-library/steps/pack/nginx/build.yml
             push-container-image:
               - label: gcp
-                uri: sky-lounge/skylounge-library/steps/artifact-registry/push/push.yml
+                uri: sky-lounge/skylounge-library/steps/gcp/artifact-registry/push/push.yml
             upload-sboms:
               - label: gcp
                 uri: sky-lounge/skylounge-library/steps/gcp/cloud-storage/push/push.yml
