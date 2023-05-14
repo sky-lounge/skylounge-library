@@ -3,7 +3,7 @@ steps:
     uses: "google-github-actions/upload-cloud-storage@v1"
     with:
       path: "/tmp/sbom/"
-      destination: "${BUCKET_NAME}/${APPLICATION_NAME}/${SHA}/"
+      destination: "${{env.BUCKET_NAME}}/${{env.APPLICATION_NAME}}/${{env.SHA}}/"
       glob: "**/*.json"
     env:
       APPLICATION_NAME: "${{ github.event.repository.name }}"
