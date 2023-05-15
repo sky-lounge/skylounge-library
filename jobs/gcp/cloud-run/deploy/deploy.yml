@@ -2,8 +2,12 @@ deploy:
   needs: build
   name: Deploy to Google Cloud Run
   runs-on: ubuntu-latest
+  defaults:
+    run:
+      working-directory: public-skylounge-library/terraform/gcp/cloud-run/domain-mapping
   env:
     REGISTRY: ((registry_url))
+    GCP_PROJECT: ((gcp_project))
   steps:
     - name: Checkout branch
       uses: actions/checkout@v3
@@ -13,24 +17,16 @@ deploy:
         sed -i -e 's%${GCP_PROJECT}%'"$GCP_PROJECT"'%g' ./service.yaml
       env:
         IMAGE_NAME: "${{ env.REGISTRY }}/${{ github.event.repository.name }}:${{ github.sha }}"
-        GCP_PROJECT: ((gcp_project))
     - id: auth
       name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v0
       with:
-        credentials_json: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
+        credentials_json: ((credentials_json_secret_string))
     - id: deploy
+      name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0
       with:
         metadata: ./service.yaml
-configure-access:
-  needs: deploy
-  name: Map Domain
-  runs-on: ubuntu-latest
-  defaults:
-    run:
-      working-directory: public-skylounge-library/terraform/gcp/cloud-run/domain-mapping
-  steps:
     - name: Checkout terraform
       uses: actions/checkout@v3
       with:
@@ -38,12 +34,7 @@ configure-access:
         ref: main
         path: public-skylounge-library
     - uses: hashicorp/setup-terraform@v2
-    - id: auth
-      name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v0
-      with:
-        credentials_json: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
-    - name: Prepare Backend Config
+    - name: Prepare Terraform Backend
       run: |
         cat << EOF > config.gcs.tfbackend
         bucket = "$TF_STATE_BUCKET"
@@ -65,7 +56,6 @@ configure-access:
           echo "cloud_run_invoker = \"$CLOUD_RUN_INVOKER\"" >> terraform.tfvars
         fi
       env:
-        GCP_PROJECT: ((gcp_project))
         DNS_ZONE_NAME: ((dns_zone_name))
         CLOUD_RUN_DOMAIN: ((cloud_run_domain))
         CLOUD_RUN_LOCATION: ((cloud_run_location))

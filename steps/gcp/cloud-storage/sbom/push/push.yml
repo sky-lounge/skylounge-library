@@ -1,5 +1,5 @@
 steps:
-  - name: upload-sboms
+  - name: Upload SBOMs to Cloud Storage
     uses: "google-github-actions/upload-cloud-storage@v1"
     with:
       path: "/tmp/sbom/"

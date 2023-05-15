@@ -1,5 +1,5 @@
 steps:
-  - name: Push container image
+  - name: Push container image to Artifact Registry
     run: |
       registry_base_url=$(cut -d/ -f 1 <<< $REGISTRY)
       gcloud auth configure-docker $registry_base_url

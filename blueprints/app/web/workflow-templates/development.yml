@@ -39,3 +39,4 @@ jobs:
       - skylounge-step: build-container-image
       - skylounge-step: push-container-image
       - skylounge-step: upload-sboms
+  deploy: skylounge-job

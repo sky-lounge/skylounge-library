@@ -36,8 +36,12 @@ workflows:
                 uri: sky-lounge/skylounge-library/steps/gcp/cloud-storage/sbom/push/push.yml
                 params:
                   sbom_bucket: sboms.skylounge.io
-  #   params:
-  #     gcp_project: skyloungedev
-  # production:
-  #   params:
-  #     gcp_project: skyloungeio
+      deploy:
+        - label: cloud-run
+          uri: sky-lounge/skylounge-library/jobs/gcp/cloud-run/deploy/deploy.yml
+          params:
+            cloud_run_location: us-central1
+            credentials_json_secret_string: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
+            dns_zone_name: skyloungedev
+            gcp_project: skylounge-dev
+            tf_state_bucket: tfstate.skylounge.dev

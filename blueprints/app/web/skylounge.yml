@@ -17,8 +17,10 @@ workflows:
             uri: # Enter the URI to the step definition used to push the container image to a registry. Example: sky-lounge/skylounge-library/steps/gcp/artifact-registry/push/push.yml
           - step: upload-sboms
             uri: # Enter the URI to the step definition used to upload the SBOMs to storage. Example: sky-lounge/skylounge-library/steps/gcp/cloud-storage/sbom/push/push.yml
-        params:
-          build_paths: # An array of paths which trigger the build job on change. Example: ["src/**", "build.gradle", "service.yaml"]
+      - job: deploy
+        uri: # The URI to the job definition for deployment. Example: sky-lounge/skylounge-library/jobs/gcp/cloud-run/deploy/deploy.yml
+    params:
+      build_paths: # An array of paths which trigger the build job on change. Example: ["src/**", "build.gradle", "service.yaml"]
 #       - job: deploy
 #       - job: integration-test
 #         uri: # The URI to your integration tests. Example: sky-lounge/hello-app/skylounge/integration-test.yml
