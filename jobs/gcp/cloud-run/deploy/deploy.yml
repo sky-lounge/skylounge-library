@@ -2,19 +2,17 @@ deploy:
   needs: build
   name: Deploy to Google Cloud Run
   runs-on: ubuntu-latest
-  defaults:
-    run:
-      working-directory: public-skylounge-library/terraform/gcp/cloud-run/domain-mapping
   env:
     REGISTRY: ((registry_url))
     GCP_PROJECT: ((gcp_project))
   steps:
     - name: Checkout branch
       uses: actions/checkout@v3
+      path: source
     - name: Set image and service name
       run: |
-        sed -i -e 's%${IMAGE_NAME}%'"$IMAGE_NAME"'%g' ./service.yaml
-        sed -i -e 's%${GCP_PROJECT}%'"$GCP_PROJECT"'%g' ./service.yaml
+        sed -i -e 's%${IMAGE_NAME}%'"$IMAGE_NAME"'%g' source/service.yaml
+        sed -i -e 's%${GCP_PROJECT}%'"$GCP_PROJECT"'%g' source/service.yaml
       env:
         IMAGE_NAME: "${{ env.REGISTRY }}/${{ github.event.repository.name }}:${{ github.sha }}"
     - id: auth
@@ -26,7 +24,7 @@ deploy:
       name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0
       with:
-        metadata: ./service.yaml
+        metadata: source/service.yaml
     - name: Checkout terraform
       uses: actions/checkout@v3
       with:
@@ -36,25 +34,32 @@ deploy:
     - uses: hashicorp/setup-terraform@v2
     - name: Prepare Terraform Backend
       run: |
-        cat << EOF > config.gcs.tfbackend
-        bucket = "$TF_STATE_BUCKET"
-        prefix = "${REPO_NAME}"
-        EOF
+        pushd public-skylounge-library/terraform/gcp/cloud-run/domain-mapping
+          cat << EOF > config.gcs.tfbackend
+          bucket = "$TF_STATE_BUCKET"
+          prefix = "${REPO_NAME}"
+          EOF
+        popd
       env:
         TF_STATE_BUCKET: ((tf_state_bucket))
         REPO_NAME: "${{ github.event.repository.name }}"
     - name: Terraform Init
-      run: terraform init -backend-config=config.gcs.tfbackend
+      run: |
+        pushd public-skylounge-library/terraform/gcp/cloud-run/domain-mapping
+          terraform init -backend-config=config.gcs.tfbackend
+        popd
     - name: Prepare Terraform Vars File
       run: |
-        echo "gcp_project = \"$GCP_PROJECT\"" > terraform.tfvars
-        echo "dns_zone_name = \"$DNS_ZONE_NAME\"" >> terraform.tfvars
-        echo "cloud_run_domain = \"$CLOUD_RUN_DOMAIN\"" >> terraform.tfvars
-        echo "cloud_run_location = \"$CLOUD_RUN_LOCATION\"" >> terraform.tfvars
-        echo "cloud_run_service_name = \"$CLOUD_RUN_SERVICE_NAME\"" >> terraform.tfvars
-        if [ -n "$CLOUD_RUN_INVOKER" ]; then
-          echo "cloud_run_invoker = \"$CLOUD_RUN_INVOKER\"" >> terraform.tfvars
-        fi
+        pushd public-skylounge-library/terraform/gcp/cloud-run/domain-mapping
+          echo "gcp_project = \"$GCP_PROJECT\"" > terraform.tfvars
+          echo "dns_zone_name = \"$DNS_ZONE_NAME\"" >> terraform.tfvars
+          echo "cloud_run_domain = \"$CLOUD_RUN_DOMAIN\"" >> terraform.tfvars
+          echo "cloud_run_location = \"$CLOUD_RUN_LOCATION\"" >> terraform.tfvars
+          echo "cloud_run_service_name = \"$CLOUD_RUN_SERVICE_NAME\"" >> terraform.tfvars
+          if [ -n "$CLOUD_RUN_INVOKER" ]; then
+            echo "cloud_run_invoker = \"$CLOUD_RUN_INVOKER\"" >> terraform.tfvars
+          fi
+        popd
       env:
         DNS_ZONE_NAME: ((dns_zone_name))
         CLOUD_RUN_DOMAIN: ((cloud_run_domain))
@@ -62,4 +67,7 @@ deploy:
         CLOUD_RUN_SERVICE_NAME: "${{ github.event.repository.name }}"
         CLOUD_RUN_INVOKER: ((_cloud_run_invoker))
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: |
+        pushd public-skylounge-library/terraform/gcp/cloud-run/domain-mapping
+          terraform apply -auto-approve
+        popd
