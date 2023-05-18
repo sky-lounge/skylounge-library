@@ -1,13 +1,19 @@
 ---
 steps:
+  - name: Extract Manifest values
+    id: manifest
+    uses: pietrobolcato/action-read-yaml@1.0.0
+    with:
+      config: ${{ github.workspace }}/${MANIFEST}
+    env:
+      MANIFEST: ((cf_manifest))
   - name: Deploy
     run: |
       cf api $API
       cf auth
       cf target -o $ORG -s $SPACE
       cf push -f $MANIFEST --strategy rolling
-      manifest=$(cat $MANIFEST)
-      app_name=${{ fromJSON(${manifest}).applications.name }}
+      app_name=${{ steps.manifest.outputs['applications.name'] }}
       cf set-label app $app_name "commit=${{ github.sha }}"
     env:
       API: ((cf_api))
