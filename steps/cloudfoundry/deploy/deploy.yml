@@ -12,16 +12,17 @@ steps:
       mkdir cf-cli
       cd cf-cli
       curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" | tar -zx
-      mv cf8 /user/local/bin
-      mv cf /usr/local/bin
+      rm cf
+      mv cf8 cf
+      chmod +x cf
   - name: Deploy
     run: |
-      cf api $API
-      cf auth
-      cf target -o $ORG -s $SPACE
-      cf push -f $MANIFEST --strategy rolling
+      cf-cli/cf api $API
+      cf-cli/cf auth
+      cf-cli/cf target -o $ORG -s $SPACE
+      cf-cli/cf push -f $MANIFEST --strategy rolling
       app_name=${{ steps.manifest.outputs['applications.name'] }}
-      cf set-label app $app_name "commit=${{ github.sha }}"
+      cf-cli/cf set-label app $app_name "commit=${{ github.sha }}"
     env:
       API: ((cf_api))
       CF_USERNAME: ((cf_username))
