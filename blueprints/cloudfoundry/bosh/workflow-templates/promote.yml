@@ -4,8 +4,6 @@ name: Promote
 on: workflow_dispatch
 
 jobs:
-  pentest:
-
   promote:
     name: Promote dev version
     runs-on: ubuntu-latest
