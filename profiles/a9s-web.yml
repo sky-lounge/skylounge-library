@@ -24,4 +24,4 @@ workflows:
                   cf_api: "https://api.de.a9s.eu"
                   cf_username: "${{ secrets.CF_DEV_USERNAME }}"
                   cf_password: "${{ secrets.CF_DEV_PASSWORD }}"
-                  cf_manifest: "dev-manifest.yml"
+                  cf_manifest: "cf/dev-manifest.yml"

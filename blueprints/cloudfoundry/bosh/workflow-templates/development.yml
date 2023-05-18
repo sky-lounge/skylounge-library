@@ -14,6 +14,8 @@ jobs:
     name: Unit test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
       - skylounge-step: unit-test
   deploy:
     needs: [unit-test]
