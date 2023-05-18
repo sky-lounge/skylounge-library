@@ -9,12 +9,9 @@ steps:
       MANIFEST: ((cf_manifest))
   - name: Install Cloud Foundry CLI
     run: |
-      curl -L -f "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" --output cf.tgz
-      tar -xvzf cf.tgz
-      ls -al
-      pwd
-      chmod +x cf
-      ls -al
+      curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" | tar -zx
+      mv cf8 /user/local/bin
+      mv cf /usr/local/bin
   - name: Deploy
     run: |
       cf api $API
