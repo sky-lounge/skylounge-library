@@ -1,0 +1,18 @@
+---
+steps:
+  - name: Deploy
+    run: |
+      cf api $API
+      cf auth
+      cf target -o $ORG -s $SPACE
+      cf push -f $MANIFEST --strategy rolling
+      manifest=$(cat $MANIFEST)
+      app_name=${{ fromJSON(${manifest}).applications.name }}
+      cf set-label app $app_name "commit=${{ github.sha }}"
+    env:
+      API: ((cf_api))
+      CF_USERNAME: ((cf_username))
+      CF_PASSWORD: ((cf_password))
+      ORG: ((cf_org))
+      SPACE: ((cf_space))
+      MANIFEST: ((cf_manifest))
