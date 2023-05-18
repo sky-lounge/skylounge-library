@@ -7,6 +7,11 @@ steps:
       config: ${{ github.workspace }}/${MANIFEST}
     env:
       MANIFEST: ((cf_manifest))
+  - name: Install Cloud Foundry CLI
+    run: |
+      curl -L -f "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" --output cf.tgz
+      tar -xvzf cf.tgz
+      chmod +x cf
   - name: Deploy
     run: |
       cf api $API
