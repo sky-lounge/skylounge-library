@@ -9,6 +9,8 @@ steps:
       MANIFEST: ((cf_manifest))
   - name: Install Cloud Foundry CLI
     run: |
+      ls -al 
+      pwd
       curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" | tar -zx
       mv cf8 /user/local/bin
       mv cf /usr/local/bin
