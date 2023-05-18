@@ -11,7 +11,10 @@ steps:
     run: |
       curl -L -f "https://packages.cloudfoundry.org/stable?release=linux64-binary&version=v8&source=github" --output cf.tgz
       tar -xvzf cf.tgz
+      ls -al
+      pwd
       chmod +x cf
+      ls -al
   - name: Deploy
     run: |
       cf api $API
