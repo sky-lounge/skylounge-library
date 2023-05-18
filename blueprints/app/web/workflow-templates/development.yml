@@ -40,3 +40,35 @@ jobs:
       - skylounge-step: push-container-image
       - skylounge-step: upload-sboms
   deploy: skylounge-job
+  owasp-zap-full-scan:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+      - name: OWASP Zap Full Scan
+        uses: zaproxy/action-full-scan@v0.4.0
+        id: scan
+        with:
+          target: ((endpoint_to_scan))
+          rules_file_name: skylounge/owasp/rules.cfg
+          issue_title: "OWASP Full Scan - ${{ github.run_number }}"
+          token: ${{ github.token }}
+          fail_action: false
+  integration-test: skylounge-job
+  artifact-version:
+    needs: [owasp-zap-full-scan, integration-test]
+    name: Update artifact version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      - name: Update Artifact Version
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          echo "${{ github.sha }}" > development-version.txt
+          git add development-version.txt
+          git commit -m "update development version: ${{ github.sha }}"
+          git pull --rebase
+          git push
