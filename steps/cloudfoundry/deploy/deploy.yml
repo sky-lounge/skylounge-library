@@ -4,7 +4,7 @@ steps:
     id: manifest
     uses: pietrobolcato/action-read-yaml@1.0.0
     with:
-      config: ${{ github.workspace }}/${MANIFEST}
+      config: ${{ github.workspace }}/${{ env.MANIFEST }}
     env:
       MANIFEST: ((cf_manifest))
   - name: Install Cloud Foundry CLI
@@ -16,7 +16,7 @@ steps:
       mv cf8 cf
       chmod +x cf
       echo ${{ steps.manifest.outputs['applications.0.name'] }}
-      echo ${{ steps.manifest.outputs[] }}
+      echo ${{ steps.manifest.outputs['applications'] }}
   - name: Deploy
     run: |
       cf-cli/cf api $API
