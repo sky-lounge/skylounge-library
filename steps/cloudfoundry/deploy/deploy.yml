@@ -16,6 +16,7 @@ steps:
       mv cf8 cf
       chmod +x cf
   - name: Deploy
+    id: deploy
     run: |
       cf-cli/cf api $API
       cf-cli/cf auth
@@ -23,6 +24,8 @@ steps:
       cf-cli/cf push -f $MANIFEST --strategy rolling
       app_name=${{ steps.manifest.outputs['applications.0.name'] }}
       cf-cli/cf set-label app $app_name "commit=${{ github.sha }}"
+      route=${{ steps.manifest.outputs['applications.0.routes.0.route'] }}
+      echo "route=${route}" >> $GITHUB_OUTPUTS
     env:
       API: ((cf_api))
       CF_USERNAME: ((cf_username))
