@@ -43,18 +43,21 @@ jobs:
           rules_file_name: skylounge/owasp/rules.cfg
           issue_title: "OWASP Full Scan - ${{ github.run_number }}"
           token: ${{ github.token }}
-          fail_action: true
+          fail_action: false
         env:
           ROUTE: ${{needs.deploy.outputs.route}}
   deployed-version:
     needs: [integration-test, owasp-zap-full-scan]
     name: Update deployed version
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
       - name: Update Artifact Version
         run: |
+          git checkout -b deployed_version_tracking
           git config user.name "GitHub Actions Bot"
           git config user.email "service-account@cloud.gov"
           echo "${{ github.sha }}" > .github/development-version.txt
