@@ -49,7 +49,7 @@ jobs:
         env:
           ROUTE: ${{needs.deploy.outputs.route}}
   update-deployed-version:
-    needs: [integration-test, owasp-zap-full-scan]
+    needs: [integration-test, owasp-zap-scan]
     name: Update deployed version
     runs-on: ubuntu-latest
     steps:
