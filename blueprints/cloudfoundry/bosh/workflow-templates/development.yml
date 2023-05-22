@@ -10,15 +10,7 @@ on:
       - .github/production-version.txt
   workflow_dispatch:
 jobs:
-  unit-test:
-    name: Unit test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v3
-      - skylounge-step: unit-test
   deploy:
-    needs: [unit-test]
     name: Deploy to development space
     runs-on: ubuntu-latest
     outputs:

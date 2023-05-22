@@ -1,0 +1,3 @@
+params:
+  config_file: # Specifies a path to a configuration file. The configuration file for an org should reside in a SkyLounge Library. Format: OWNER/REPOSITORY/FILENAME@BRANCH. Configuration options: https://github.com/actions/dependency-review-action#configuration-options.
+  external_repo_token: # Specifies a token for fetching the configuration file from the SkyLounge Library. The token must have read access to the repository.

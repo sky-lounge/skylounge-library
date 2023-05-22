@@ -18,6 +18,7 @@ workflows:
       params:
         config_file: sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/cloud-gov.yml@main
         external_repo_token: "${{ secrets.LIBRARY_TOKEN }}"
+
   # development:
   #   jobs:
   #     unit-test:
@@ -36,7 +37,7 @@ workflows:
   #           deploy:
   #             - uri: sky-lounge/skylounge-library/steps/cloudfoundry/deploy/deploy.yml
   #               params:
-  #                 cf_api: "https://api.de.a9s.eu"
+  #                 cf_api: "https://api.fr.cloud.gov"
   #                 cf_username: "${{ secrets.CF_DEV_USERNAME }}"
   #                 cf_password: "${{ secrets.CF_DEV_PASSWORD }}"
-  #                 cf_manifest: "cf/dev-manifest.yml"
+  #                 cf_manifest: "dev-manifest.yml"
