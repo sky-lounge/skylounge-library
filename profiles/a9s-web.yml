@@ -7,5 +7,5 @@ workflows:
     jobs:
       dependency-review:
         - params:
-          config_file: "sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/cloud-gov.yml@main"
+          config_file: "sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/cloud-gov.yml"
           external_repo_token: "${{ secrets.LIBRARY_TOKEN }}"
