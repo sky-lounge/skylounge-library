@@ -1,5 +1,5 @@
 ---
-uri: sky-lounge/public-skylounge-library/blueprints/cloudfoundry/bosh/blueprint.yml
+uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/bosh/blueprint.yml
 params:
   main_branch: main
 workflows:
