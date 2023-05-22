@@ -6,13 +6,6 @@ permissions:
   pull-request: write
 
 jobs:
-  unit-test:
-    name: Unit Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - skylounge-step: unit-test
   dependency-review:
     name: GitHub Dependency Review
     runs-on: ubuntu-latest
@@ -22,5 +15,8 @@ jobs:
       - name: Dependency Review
         uses: actions/dependency-review-action@v3
         with:
-          config-file: ((config_file))
-          external-repo-token: ((external_repo_token))
+          config-file: ${{ env.CONFIG_FILE }}
+          external-repo-token: ${{ env.EXTERNAL_REPO_TOKEN }}
+        env:
+          CONFIG_FILE: ((config_file))
+          EXTERNAL_REPO_TOKEN: ((external_repo_token))

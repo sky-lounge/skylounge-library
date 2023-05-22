@@ -5,38 +5,7 @@ params:
 workflows:
   pull-request:
     jobs:
-      unit-test:
-        - steps:
-            unit-test:
-              - label: gradlew
-                uri: sky-lounge/skylounge-library/steps/unit-test/gradlew/unit-test.yml
-                params:
-                  jvm_version: 17
-              - label: nginx
-                uri: sky-lounge/skylounge-library/steps/unit-test/nginx/unit-test.yml
       dependency-review:
         params:
           config_file: "sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/cloud-gov.yml@main"
           external_repo_token: "${{ secrets.LIBRARY_TOKEN }}"
-  # development:
-  #   jobs:
-  #     unit-test:
-  #       - steps:
-  #           unit-test:
-  #             - label: gradlew
-  #               uri: sky-lounge/skylounge-library/steps/unit-test/gradlew/unit-test.yml
-  #               params:
-  #                 jvm_version: 17
-  #             - label: nginx
-  #               uri: sky-lounge/skylounge-library/steps/unit-test/nginx/unit-test.yml
-  #     deploy:
-  #       - steps:
-  #           pre-deploy:
-  #             - uri: sky-lounge/skylounge-library/steps/no-step/step.yml
-  #           deploy:
-  #             - uri: sky-lounge/skylounge-library/steps/cloudfoundry/deploy/deploy.yml
-  #               params:
-  #                 cf_api: "https://api.de.a9s.eu"
-  #                 cf_username: "${{ secrets.CF_DEV_USERNAME }}"
-  #                 cf_password: "${{ secrets.CF_DEV_PASSWORD }}"
-  #                 cf_manifest: "cf/dev-manifest.yml"
