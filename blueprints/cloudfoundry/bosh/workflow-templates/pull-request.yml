@@ -7,16 +7,17 @@ permissions:
 
 jobs:
   unit-test:
-    name: Unit test
+    name: Unit Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
+      - name: Checkout Repository
         uses: actions/checkout@v3
       - skylounge-step: unit-test
   dependency-review:
+    name: GitHub Dependency Review
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout Repository"
+      - name: Checkout Repository
         uses: actions/checkout@v3
       - name: Dependency Review
         uses: actions/dependency-review-action@v3
