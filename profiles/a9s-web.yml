@@ -5,7 +5,16 @@ params:
 workflows:
   pull-request:
     jobs:
+      unit-test:
+        - steps:
+            unit-test:
+              - label: gradlew
+                uri: sky-lounge/skylounge-library/steps/unit-test/gradlew/unit-test.yml
+                params:
+                  jvm_version: 17
+              - label: nginx
+                uri: sky-lounge/skylounge-library/steps/unit-test/nginx/unit-test.yml
       dependency-review:
-        params:
-          config_file: "sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/cloud-gov.yml@main"
-          external_repo_token: "${{ secrets.LIBRARY_TOKEN }}"
+        - params:
+            config_file: "sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/cloud-gov.yml@main"
+            external_repo_token: "${{ secrets.LIBRARY_TOKEN }}"
