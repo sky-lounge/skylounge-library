@@ -22,11 +22,19 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          repository: sky-lounge/skylounge-library
+          path: library
+          token: ${{ secrets.LIBRARY_TOKEN }}
+      - name: debug
+        run: |
+          cat library/jobs/github/security/dependency-review/config/cloud-gov.yml
       - name: Dependency Review
         uses: actions/dependency-review-action@v3
         with:
           config-file: ${{ env.CONFIG_FILE }}
-          external-repo-token: ${{ env.EXTERNAL_REPO_TOKEN }}
+          external-repo-token: ${{ secrets.LIBRARY_TOKEN }}
         env:
           CONFIG_FILE: ((config_file))
-          EXTERNAL_REPO_TOKEN: ((external_repo_token))
