@@ -29,3 +29,14 @@ workflows:
                   cf_username: "${{ secrets.CF_DEV_USERNAME }}"
                   cf_password: "${{ secrets.CF_DEV_PASSWORD }}"
                   cf_manifest: "cf/dev-manifest.yml"
+  production:
+    jobs:
+      deploy:
+        - steps:
+            deploy:
+              - uri: sky-lounge/skylounge-library/steps/cloudfoundry/deploy/deploy.yml
+                params:
+                  cf_api: "https://api.de.a9s.eu"
+                  cf_username: "${{ secrets.CF_PROD_USERNAME }}"
+                  cf_password: "${{ secrets.CF_PROD_PASSWORD }}"
+                  cf_manifest: "cf/prod-manifest.yml"

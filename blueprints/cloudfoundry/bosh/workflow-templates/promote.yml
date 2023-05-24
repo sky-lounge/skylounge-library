@@ -5,16 +5,24 @@ on: workflow_dispatch
 
 jobs:
   promote:
-    name: Promote dev version
+    name: Promote Development Version
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          ref: deployed_version_tracking
+          path: development
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          path: production
       - name: Update Production Version
         run: |
+          cd production
           git config user.name "GitHub Actions Bot"
           git config user.email "service-account@cloud.gov"
-          cp .github/development-version.txt .github/production-version.txt
+          cp ../development/.github/development-version.txt .github/production-version.txt
           git add .github/production-version.txt
           git commit -m "update production version: $(cat .github/production-version.txt)"
           git pull --rebase
