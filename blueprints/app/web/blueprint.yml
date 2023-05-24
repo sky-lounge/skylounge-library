@@ -31,6 +31,9 @@ documentation: |
     * GOOGLE_CREDENTIALS_DEV: Credentials for a service account that can: read/write from the artifact registry, deploy to cloud run, and configure service networking, and dns.
     * GOOGLE_CREDENTIALS_PROD: Credentials for a service account that can: read/write from the artifact registry, deploy to cloud run, and configure service networking, and dns.
 
+hide-in-environments:
+  - production
+  - development
 tags:
   - container-build
   - virus-scan

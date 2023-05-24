@@ -3,6 +3,9 @@ description: |
 
 documentation: |
 
+hide-in-environments:
+  - production
+
 tags:
   - penetration-test
 weight: 2
