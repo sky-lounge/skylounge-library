@@ -23,7 +23,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
       - name: Dependency Review
-        uses: actions/dependency-review-action@v3
+        uses: actions/dependency-review-action@main
         with:
           config-file: ${{ env.CONFIG_FILE }}
           external-repo-token: ${{ secrets.LIBRARY_TOKEN }}
