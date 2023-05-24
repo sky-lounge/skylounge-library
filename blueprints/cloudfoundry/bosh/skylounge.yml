@@ -22,8 +22,6 @@ workflows:
             uri: # The URI to the deploy step definition. Example: sky-lounge/skylounge-library/steps/cloudfoundry/deploy/deploy.yml
       - job: integration-test
         uri: # The URI to your integration tests job definition. Example: sky-lounge/hello-cf/skylounge/integration-test.yml
-    params:
-      build_paths: # An array of paths which trigger the build job on change. Example: ["public","nginx.conf","skylounge","cf/dev-manifest.yml"]
   - workflow: production
     jobs:
       - job: deploy
@@ -33,5 +31,6 @@ workflows:
           - step: deploy
             uri: # The URI to the deploy step definition. Example: sky-lounge/skylounge-library/steps/cloudfoundry/deploy/deploy.yml
 params:
+  build_paths: # An array of paths which trigger the build job on change. Example: ["public","nginx.conf","skylounge","cf/dev-manifest.yml"]
   main_branch: # The name of the main branch in the repository. Example: "main"
 

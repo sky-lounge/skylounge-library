@@ -1,5 +1,8 @@
-name: Scan Pull Request
-on: [pull_request]
+name: Pull Request
+on:
+  pull_request:
+    types: [opened, reopened]
+    paths: ((build_paths))
 
 permissions:
   contents: read
