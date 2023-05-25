@@ -56,3 +56,5 @@ jobs:
           git add .github/development-version.txt
           git commit -m "update deployed development version: ${{ github.sha }}"
           git push
+
+#trigger
