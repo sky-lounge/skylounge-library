@@ -25,5 +25,4 @@ jobs:
           cp ../development/.github/development-version.txt .github/production-version.txt
           git add .github/production-version.txt
           git commit -m "update production version: $(cat .github/production-version.txt)"
-          git pull --rebase
-          git push
+          gh pr create --fill
