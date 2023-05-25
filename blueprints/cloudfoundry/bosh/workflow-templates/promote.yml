@@ -23,8 +23,10 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "service-account@cloud.gov"
           cp ../development/.github/development-version.txt .github/production-version.txt
+          git checkout -b production-version
           git add .github/production-version.txt
           git commit -m "update production version: $(cat .github/production-version.txt)"
+          git push origin production-version
           gh pr create --fill
         env:
           GH_TOKEN: ${{ github.token }}
