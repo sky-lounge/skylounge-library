@@ -51,7 +51,7 @@ jobs:
         run: |
           git checkout -b deployed_version_tracking
           git config user.name "GitHub Actions Bot"
-          git config user.email "service-account@cloud.gov"
+          git config user.email "actions-bot@github.com"
           echo "${{ github.sha }}" > .github/development-version.txt
           git add .github/development-version.txt
           git commit -m "update development version: ${{ github.sha }}"
