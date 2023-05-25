@@ -55,5 +55,4 @@ jobs:
           echo "${{ github.sha }}" > .github/development-version.txt
           git add .github/development-version.txt
           git commit -m "update development version: ${{ github.sha }}"
-          git pull --rebase
           git push
