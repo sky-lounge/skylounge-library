@@ -26,3 +26,5 @@ jobs:
           git add .github/production-version.txt
           git commit -m "update production version: $(cat .github/production-version.txt)"
           gh pr create --fill
+        env:
+          GH_TOKEN: ${{ github.token }}
