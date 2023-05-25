@@ -55,6 +55,4 @@ jobs:
           echo "${{ github.sha }}" > .github/development-version.txt
           git add .github/development-version.txt
           git commit -m "update deployed development version: ${{ github.sha }}"
-          git push
-
-#trigger
+          git push origin deployed_version_tracking
