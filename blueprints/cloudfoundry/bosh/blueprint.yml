@@ -15,15 +15,12 @@ workflow-templates:
       Checks pull requests before merging. This workflow runs unit tests and GitHub Advanced Security [Dependency Review](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review) using a centralized configuration file.
     uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/bosh/workflow-templates/pull-request.yml
     documentation: |
-      ## Job: Unit Test (unit-test)
-      This job ensures unit tests pass before the pull request is merged. 
-      ### Configuration
-      A skylounge-step to run unit tests must be configured. 
+      ## Unit Test (unit-test)
+      This job ensures unit tests pass before the pull request is merged. A skylounge-step to run unit tests must be configured. 
 
-      ## Job: Dependency Review (dependency-review)
+      ## Dependency Review (dependency-review)
       This job runs GitHub Advanced Security [Dependency Review](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review) using a centralized configuration file
 
-      ### Configuration
       The job uses a centralized configuration file specificying the rules. This file should be stored in your organizations SkyLounge Library. Configuration options are documented in the action repository: https://github.com/actions/dependency-review-action#configuration-options. As per the option documentation, **the option names in external files use underscores instead of dashes**.
 
       In order to access the configuration file, you must generate a [Classic Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#personal-access-tokens-classic) with the `repo` scope. _The action does not yet work with fine-grained access tokens._ Store the token as a GitHub Secret using the name `LIBRARY_TOKEN`.
