@@ -1,5 +1,5 @@
 ---
-uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/bosh/blueprint.yml
+uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/cloud-gov/blueprint.yml
 params:
   main_branch: main
 workflows:
@@ -8,6 +8,11 @@ workflows:
       unit-test:
         - steps:
             unit-test:
+              - label: go
+                uri: sky-lounge/skylounge-library/steps/unit-test/go/unit-test.yml
+                params:
+                  go-version: stable
+                  check-latest: true
               - label: gradlew
                 uri: sky-lounge/skylounge-library/steps/unit-test/gradlew/unit-test.yml
                 params:
@@ -17,6 +22,19 @@ workflows:
       dependency-review:
         - params:
             config_file: "sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/cloud-gov.yml@main"
+      codeql:
+        - label: java
+          params:
+            language_array: ["Java"]
+          steps:
+            build:
+              - uri: sky-lounge/skylounge-library/steps/github/security/codeql/auto-build/step.yml
+        - label: nginx
+          params:
+            language_array: ["JavaScript"]
+          steps:
+            build:
+              - uri: sky-lounge/skylounge-library/steps/github/security/codeql/manual-build/step.yml
   development:
     jobs:
       deploy:
@@ -39,3 +57,17 @@ workflows:
                   cf_username: "${{ secrets.CF_PROD_USERNAME }}"
                   cf_password: "${{ secrets.CF_PROD_PASSWORD }}"
                   cf_manifest: "cf/prod-manifest.yml"
+  scans:
+    jobs:
+      dependency-review:
+        - params:
+            config_file: "sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/cloud-gov.yml@main"
+      codeql:
+        - label: java
+          uri: sky-lounge/skylounge-library/jobs/codeql/auto-build/job.yml
+          params:
+            language_array: ["Java"]
+        - label: nginx
+          uri: sky-lounge/skylounge-library/jobs/codeql/manual-build/job.yml
+          params:
+            language_array: ["JavaScript"]

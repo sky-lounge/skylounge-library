@@ -1,5 +1,5 @@
 ---
-blueprint-uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/bosh/blueprint.yml
+blueprint-uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/cloud-gov/blueprint.yml
 
 workflows:
   - workflow: pull-request
@@ -12,6 +12,8 @@ workflows:
         params:
           config_file: # Specifies a path to a configuration file. The configuration file for an org should reside in a SkyLounge Library. Format: OWNER/REPOSITORY/FILENAME@BRANCH. Configuration options: https://github.com/actions/dependency-review-action#configuration-options.
           external_repo_token: # Specifies a token for fetching the configuration file from the SkyLounge Library. The token must have read access to the repository.
+      - job: codeql
+        uri: # The URI to the codeQL job definition. Example: sky-lounge/jobs/github/security/codeql/auto-build/job.yml
   - workflow: development
     jobs:
       - job: deploy
@@ -30,6 +32,13 @@ workflows:
             uri: # The URI to the pre-deploy step definition. Use sky-lounge/skylounge-library/steps/no-step/step.yml to skip pre-deploy setup. Example: sky-lounge/hello-cf/skylounge/pre-deploy.yml
           - step: deploy
             uri: # The URI to the deploy step definition. Example: sky-lounge/skylounge-library/steps/cloudfoundry/deploy/deploy.yml
+  - workflow: scans
+    jobs:
+      - job: dependency-review
+        params:
+          config_file: # Specifies a path to a configuration file. The configuration file for an org should reside in a SkyLounge Library. Format: OWNER/REPOSITORY/FILENAME@BRANCH. Configuration options: https://github.com/actions/dependency-review-action#configuration-options.
+          external_repo_token: # Specifies a token for fetching the configuration file from the SkyLounge Library. The token must have read access to the repository.
+
 params:
   build_paths: # An array of paths which trigger the build job on change. Example: ["public","nginx.conf","skylounge","cf/dev-manifest.yml"]
   main_branch: # The name of the main branch in the repository. Example: "main"

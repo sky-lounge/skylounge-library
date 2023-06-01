@@ -1,0 +1,3 @@
+params:
+  go_version: # The Go version to use. See: https://github.com/actions/setup-go#usage
+  check_latest: # If check-latest is set to true, the action first checks if the cached version is the latest one.

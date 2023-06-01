@@ -1,0 +1,4 @@
+---
+steps:
+  - name: Autobuild
+    uses: github/codeql-action/autobuild@v2

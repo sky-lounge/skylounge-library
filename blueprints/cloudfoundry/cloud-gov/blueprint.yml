@@ -1,4 +1,4 @@
-display-name: Cloud Foundry on Bosh
+display-name: cloud.gov
 description: |
 
 documentation: |
@@ -13,7 +13,7 @@ workflow-templates:
   - name: pull-request
     description: |
       Checks pull requests before merging. This workflow runs unit tests and GitHub Advanced Security [Dependency Review](https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review) using a centralized configuration file.
-    uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/bosh/workflow-templates/pull-request.yml
+    uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/cloud-gov/workflow-templates/pull-request.yml
     documentation: |
       ## Unit Test (unit-test)
       This job ensures unit tests pass before the pull request is merged. A skylounge-step to run unit tests must be configured. 
@@ -28,14 +28,14 @@ workflow-templates:
     icon: fa-solid fa-code-pull-request
   - name: development
     description: # desc
-    uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/bosh/workflow-templates/development.yml
+    uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/cloud-gov/workflow-templates/development.yml
     documentation: # Docs
     branch: main
     icon: bi bi-code-slash
   - name: promote
     description: |
       Promote from development to production by updating `.github/production-version.txt` in the repository. This workflow is manually triggered.
-    uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/bosh/workflow-templates/promote.yml
+    uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/cloud-gov/workflow-templates/promote.yml
     documentation: |
       ## Versioning semantics
       Deployed version state is tracked in the repository using two files: `.github/development-version.txt` and `.github/production-version.txt` for the development and production deployments respectively. Version values correspond to the commit SHA of the last change made in development that triggered the development workflow. This enables easy tracking of deployed features.
@@ -48,7 +48,13 @@ workflow-templates:
     icon: bi bi-mortarboard
   - name: production
     description: # desc
-    uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/bosh/workflow-templates/production.yml
+    uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/cloud-gov/workflow-templates/production.yml
+    documentation: # Docs
+    branch: main
+    icon: bi bi-code-slash
+  - name: scans
+    description: # desc
+    uri: sky-lounge/skylounge-library/blueprints/cloudfoundry/cloud-gov/workflow-templates/scans.yml
     documentation: # Docs
     branch: main
     icon: bi bi-code-slash

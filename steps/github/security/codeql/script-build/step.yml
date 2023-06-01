@@ -1,0 +1,9 @@
+---
+steps:
+  - name: Build
+    run: |
+      if [ ! -z "$BUILD_SCRIPT" ]; then 
+        eval "${BUILD_SCRIPT}"
+      fi
+    env:
+      BUILD_SCRIPT: ((_build_script))

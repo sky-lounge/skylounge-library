@@ -1,0 +1,9 @@
+---
+steps:
+  - name: Set up Ruby
+    uses: actions/setup-ruby@v4
+    with:
+      ruby-version: ((ruby_version))
+      bundler_cache: true
+  - name: Unit test
+    run: bundle exec rake

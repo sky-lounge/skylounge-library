@@ -1,0 +1,2 @@
+params:
+  build_script: # OPTIONAL: The path to the build script in the repository for this application. Example: "build/buildit.sh"

@@ -1,8 +1,8 @@
 ---
-name: Daily Scans
+name: Production Scans
 on:
   schedule:
-    - cron: "0 2 * * *" # Run everyday at 2AM
+    - cron: ((cron_schedule))
   workflow_dispatch: # allow manual trigger
 jobs:
   owasp-zap-full-scan:
@@ -19,3 +19,16 @@ jobs:
           issue_title: "Daily Scans - OWASP Full Scan - ${{ github.run_number }}"
           token: ${{ github.token }}
           fail_action: false
+  dependency-review:
+    name: GitHub Dependency Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Dependency Review
+        uses: actions/dependency-review-action@main
+        with:
+          config-file: ${{ env.CONFIG_FILE }}
+          external-repo-token: ${{ secrets.LIBRARY_TOKEN }}
+        env:
+          CONFIG_FILE: ((config_file))
