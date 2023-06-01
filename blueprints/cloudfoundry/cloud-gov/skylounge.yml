@@ -12,7 +12,9 @@ workflows:
         params:
           config_file: # Specifies a path to a configuration file. The configuration file for an org should reside in a SkyLounge Library. Format: OWNER/REPOSITORY/FILENAME@BRANCH. Configuration options: https://github.com/actions/dependency-review-action#configuration-options.
       - job: codeql
-        uri: # The URI to the codeQL job definition. Example: sky-lounge/jobs/github/security/codeql/auto-build/job.yml
+        steps:
+          - step: build
+            uri: # The URI to the build step definition. Example: sky-lounge/skylounge-library/steps/github/security/codeql/auto-build/step.yml
   - workflow: development
     jobs:
       - job: deploy
