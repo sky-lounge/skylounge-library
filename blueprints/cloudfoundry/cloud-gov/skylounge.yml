@@ -40,6 +40,6 @@ workflows:
           config_file: # Specifies a path to a configuration file. The configuration file for an org should reside in a SkyLounge Library. Format: OWNER/REPOSITORY/FILENAME@BRANCH. Configuration options: https://github.com/actions/dependency-review-action#configuration-options.
 
 params:
-  build_paths: # An array of paths which trigger the build job on change. Example: ["public","nginx.conf","skylounge","cf/dev-manifest.yml"]
+  build_paths: # An array of paths which trigger the build job on change. Example: ["src/**","skylounge/**","cf/dev-manifest.yml"]
   main_branch: # The name of the main branch in the repository. Example: "main"
 
