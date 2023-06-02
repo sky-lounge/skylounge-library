@@ -19,18 +19,18 @@ workflows:
     jobs:
       - job: deploy
         steps:
-          - step: pre-deploy
-            uri: # The URI to the pre-deploy step definition. Use sky-lounge/skylounge-library/steps/no-step/step.yml to skip pre-deploy setup. Example: sky-lounge/hello-cf/skylounge/pre-deploy.yml
+          - step: _pre-deploy
+            uri: # OPTIONAL: The URI to the pre-deploy step definition. Remove this value to omit the pre-deploy step. Example: sky-lounge/hello-cloudgov/skylounge/pre-deploy.yml
           - step: deploy
             uri: # The URI to the deploy step definition. Example: sky-lounge/skylounge-library/steps/cloudfoundry/deploy/deploy.yml
       - job: integration-test
-        uri: # The URI to your integration tests job definition. Example: sky-lounge/hello-cf/skylounge/integration-test.yml
+        uri: # The URI to your integration tests job definition. Example: sky-lounge/hello-cloudgov/skylounge/integration-test.yml
   - workflow: production
     jobs:
       - job: deploy
         steps:
-          - step: pre-deploy
-            uri: # The URI to the pre-deploy step definition. Use sky-lounge/skylounge-library/steps/no-step/step.yml to skip pre-deploy setup. Example: sky-lounge/hello-cf/skylounge/pre-deploy.yml
+          - step: _pre-deploy
+            uri: # OPTIONAL: The URI to the pre-deploy step definition. Remove this value to omit the pre-deploy step. Example: sky-lounge/hello-cloudgov/skylounge/pre-deploy.yml
           - step: deploy
             uri: # The URI to the deploy step definition. Example: sky-lounge/skylounge-library/steps/cloudfoundry/deploy/deploy.yml
   - workflow: scans
