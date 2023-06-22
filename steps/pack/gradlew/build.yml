@@ -15,6 +15,3 @@ steps:
     env:
       BP_JVM_VERSION: ((jvm_version))
       JAR_PATH: ((jar_path))
-
-
---sbom-output-dir /tmp/build-time-sbom
