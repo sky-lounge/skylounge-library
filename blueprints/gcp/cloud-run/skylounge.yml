@@ -3,6 +3,17 @@ blueprint-uri: sky-lounge/public-skylounge-library/blueprints/gcp/cloud-run/blue
 workflows:
   - workflow: development
     jobs:
+      - job: unit-test
+        steps:
+          - step: unit-test
+            uri: # The URI to the unit-test step definition. Example: sky-lounge/skylounge-library/steps/unit-test/nginx/unit-test.yml
+      - job: dependency-review
+        params:
+          config_file: # Specifies a path to a configuration file. The configuration file for an org should reside in a SkyLounge Library. Format: OWNER/REPOSITORY/FILENAME@BRANCH. Configuration options: https://github.com/actions/dependency-review-action#configuration-options.
+      - job: codeql
+        steps:
+          - step: build
+            uri: # The URI to the build step definition. Example: sky-lounge/skylounge-library/steps/github/security/codeql/auto-build/step.yml
       - job: build
         steps:
           - step: build-container-image
