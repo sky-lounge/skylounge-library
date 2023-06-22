@@ -77,8 +77,19 @@ workflows:
                   jvm_version: 17
               - label: nginx
                 uri: sky-lounge/skylounge-library/steps/pack/nginx/build.yml
+      configure-access:
+        - params:
+            cloud_run_location: us-central1
+            dns_zone_name: skyloungedev
+            tf_state_bucket: tfstate.skylounge.dev
     params:
       gcp_project: skyloungedev
   production:
     params:
       gcp_project: skyloungeio
+    jobs:
+      configure-access:
+        - params:
+            cloud_run_location: us-central1
+            dns_zone_name: skyloungeprod
+            tf_state_bucket: tfstate.skylounge.io
