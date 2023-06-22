@@ -34,40 +34,40 @@ workflows:
                 uri: sky-lounge/skylounge-library/steps/unit-test/ruby/unit-test.yml
                 params:
                   ruby_version: "3.2.2"
-            dependency-review:
-              - params:
-                  config_file: "sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/skylounge.yml@main"
-            codeql:
-              - label: go
-                params:
-                  language_array: ["Go"]
-                steps:
-                  build:
-                    - uri: sky-lounge/skylounge-library/steps/github/security/codeql/auto-build/step.yml
-              - label: java
-                params:
-                  language_array: ["Java"]
-                steps:
-                  build:
-                    - uri: sky-lounge/skylounge-library/steps/github/security/codeql/auto-build/step.yml
-              - label: nginx
-                params:
-                  language_array: ["JavaScript"]
-                steps:
-                  build:
-                    - uri: sky-lounge/skylounge-library/steps/github/security/codeql/script-build/step.yml
-              - label: python
-                params:
-                  language_array: ["Python"]
-                steps:
-                  build:
-                    - uri: sky-lounge/skylounge-library/steps/github/security/codeql/script-build/step.yml
-              - label: ruby
-                params:
-                  language_array: ["Ruby"]
-                steps:
-                  build:
-                    - uri: sky-lounge/skylounge-library/steps/github/security/codeql/script-build/step.yml
+      dependency-review:
+        - params:
+            config_file: "sky-lounge/skylounge-library/jobs/github/security/dependency-review/config/skylounge.yml@main"
+      codeql:
+        - label: go
+          params:
+            language_array: ["Go"]
+          steps:
+            build:
+              - uri: sky-lounge/skylounge-library/steps/github/security/codeql/auto-build/step.yml
+        - label: java
+          params:
+            language_array: ["Java"]
+          steps:
+            build:
+              - uri: sky-lounge/skylounge-library/steps/github/security/codeql/auto-build/step.yml
+        - label: nginx
+          params:
+            language_array: ["JavaScript"]
+          steps:
+            build:
+              - uri: sky-lounge/skylounge-library/steps/github/security/codeql/script-build/step.yml
+        - label: python
+          params:
+            language_array: ["Python"]
+          steps:
+            build:
+              - uri: sky-lounge/skylounge-library/steps/github/security/codeql/script-build/step.yml
+        - label: ruby
+          params:
+            language_array: ["Ruby"]
+          steps:
+            build:
+              - uri: sky-lounge/skylounge-library/steps/github/security/codeql/script-build/step.yml
       build:
         - steps:
             build-container-image:
