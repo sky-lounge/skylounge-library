@@ -167,8 +167,8 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          echo "${{ github.sha }}" > development-version.txt
-          git add development-version.txt
+          echo "${{ github.sha }}" > .github/development-version.txt
+          git add .github/development-version.txt
           git commit -m "update development version: ${{ github.sha }}"
           git pull --rebase
           git push
