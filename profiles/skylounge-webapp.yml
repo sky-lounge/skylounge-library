@@ -84,10 +84,10 @@ workflows:
             dns_zone_name: skyloungedev
             tf_state_bucket: tfstate.skylounge.dev
     params:
-      gcp_project: skyloungedev
+      gcp_project: skylounge-dev
   production:
     params:
-      gcp_project: skyloungeio
+      gcp_project: skylounge-io
     jobs:
       configure-access:
         - params:
