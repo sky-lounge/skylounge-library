@@ -1,7 +1,7 @@
 ---
 steps:
   - name: Build Jar
-    run: ./gradlew assemble
+    run: ./gradlew clean assemble
   - name: Setup Pack
     uses: buildpacks/github-actions/setup-pack@v4.8.0
   - name: Pack build
