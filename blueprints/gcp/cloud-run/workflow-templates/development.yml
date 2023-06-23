@@ -28,6 +28,8 @@ jobs:
         with:
           config-file: ${{ env.CONFIG_FILE }}
           external-repo-token: ${{ secrets.LIBRARY_TOKEN }}
+          base-ref: main
+          head-ref: main
         env:
           CONFIG_FILE: ((config_file))
   codeql:
