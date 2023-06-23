@@ -75,6 +75,7 @@ workflows:
                 uri: sky-lounge/skylounge-library/steps/pack/gradlew/build.yml
                 params:
                   jvm_version: 17
+                  distribution: liberica
               - label: nginx
                 uri: sky-lounge/skylounge-library/steps/pack/nginx/build.yml
       configure-access:
