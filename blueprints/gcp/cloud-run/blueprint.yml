@@ -1,8 +1,5 @@
 display-name: Web App - Cloud Run
 
-hide-in-environments:
-  - production
-
 description: |
   Automates the lifecycle of web applications packaged as container images and deployed to Google Cloud Run with Custom Domain mapping. This blueprint is for trunk based development using the main branch as the trunk.
 
@@ -34,7 +31,7 @@ documentation: |
   The following secrets should be configured in GitHub Secrets before using this blueprint (either at the repository or organization level):
     * GOOGLE_CREDENTIALS_DEV: Credentials for a service account that can: read/write from the artifact registry, deploy to cloud run, and configure service networking, and dns.
     * GOOGLE_CREDENTIALS_PROD: Credentials for a service account that can: read/write from the artifact registry, deploy to cloud run, and configure service networking, and dns.
-
+    * LIBRARY_TOKEN: A personal access token with read only scope to this repository. Used to fetch the dependency-review configuration.
 tags:
   - gcp
   - container-build
