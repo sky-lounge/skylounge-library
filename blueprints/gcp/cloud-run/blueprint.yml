@@ -44,7 +44,7 @@ workflow-templates:
   - name: development
     description: |
       Automates the lifecycle of the development environment. The workflow consists of the following jobs: build, deploy, configure access, and update the artifact version. The build-container-image step is customizable.
-    uri: sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/development.yml
+    uri: github.com/sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/development.yml
     documentation: |
       The GOOGLE_CREDENTIALS_DEV will be used to authenticate to GCP.
 
@@ -99,7 +99,7 @@ workflow-templates:
   - name: promote
     description: |
       Promote from development to production by updating production-version.txt in the repository. This workflow is manually triggered.
-    uri: sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/promote.yml
+    uri: github.com/sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/promote.yml
     documentation: |
       ## Versioning semantics
       Deployed version state is tracked in the repository using two files: development-version.txt and production-version.txt for the development and production deployments respectively. Version values correspond to the commit SHA of the last change made in development that triggered the development workflow. This enables easy tracking of deployed features.
@@ -113,7 +113,7 @@ workflow-templates:
   - name: production
     description: |
       Deploy the production application to Cloud Run by fetching a specific version from Artifact Registry. This workflow triggers when the production-version.txt file changes and deploys the image version specified in the file.
-    uri: sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/production.yml
+    uri: github.com/sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/production.yml
     documentation: |
       ## Deploy to production
       The deploy job does the following:
@@ -128,7 +128,7 @@ workflow-templates:
   - name: daily-scans
     description: |
       Performs scans against the production deployment each day at 2 AM. Vulnerabilities are reported via a GitHub issue.
-    uri: sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/daily-scans.yml
+    uri: github.com/sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/daily-scans.yml
     documentation: |
       ## OWASP ZAP Full Scan
 
