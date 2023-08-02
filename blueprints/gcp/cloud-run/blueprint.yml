@@ -45,7 +45,7 @@ workflow-templates:
   - name: development
     description: |
       Automates the lifecycle of the development environment. The workflow consists of the following jobs: build, deploy, configure access, and update the artifact version. The build-container-image step is customizable.
-    uri: github.com/sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/development.yml
+    uri: sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/development.yml
     documentation: |
       The GOOGLE_CREDENTIALS_DEV will be used to authenticate to GCP.
 
@@ -85,7 +85,7 @@ workflow-templates:
 
       #### configure access
 
-      Configures access to the Cloud Run application using Terraform. The terraform is available here: https://github.com/sky-lounge/public-skylounge-library/terraform/gcp/cloud-run/domain-mapping.
+      Configures access to the Cloud Run application using Terraform. The terraform is available here: https://sky-lounge/public-skylounge-library/terraform/gcp/cloud-run/domain-mapping.
 
       * This job creates a dns route for the application. 
       * GCP will provision a certificate for this application during the first execution of this job (and subsequently automatically renew it). **Therefore, the application will not be available until this is complete. This process can take up to 30 minutes**. Subsequent updates are not affected by this provisioning process.
@@ -100,7 +100,7 @@ workflow-templates:
   - name: promote
     description: |
       Promote from development to production by updating production-version.txt in the repository. This workflow is manually triggered.
-    uri: github.com/sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/promote.yml
+    uri: sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/promote.yml
     documentation: |
       ## Versioning semantics
       Deployed version state is tracked in the repository using two files: development-version.txt and production-version.txt for the development and production deployments respectively. Version values correspond to the commit SHA of the last change made in development that triggered the development workflow. This enables easy tracking of deployed features.
@@ -114,7 +114,7 @@ workflow-templates:
   - name: production
     description: |
       Deploy the production application to Cloud Run by fetching a specific version from Artifact Registry. This workflow triggers when the production-version.txt file changes and deploys the image version specified in the file.
-    uri: github.com/sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/production.yml
+    uri: sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/production.yml
     documentation: |
       ## Deploy to production
       The deploy job does the following:
@@ -129,10 +129,10 @@ workflow-templates:
   - name: daily-scans
     description: |
       Performs scans against the production deployment each day at 2 AM. Vulnerabilities are reported via a GitHub issue.
-    uri: github.com/sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/daily-scans.yml
+    uri: sky-lounge/skylounge-library/blueprints/gcp/cloud-run/workflow-templates/daily-scans.yml
     documentation: |
       ## OWASP ZAP Full Scan
 
-      Performs an [OWASP ZAP Full Scan](https://www.zaproxy.org/docs/docker/full-scan/) against the production instance using this [GitHub Action](https://github.com/sky-lounge/public-skylounge-library/tree/main/actions/owasp-zap-full).
+      Performs an [OWASP ZAP Full Scan](https://www.zaproxy.org/docs/docker/full-scan/) against the production instance using this [GitHub Action](https://sky-lounge/public-skylounge-library/tree/main/actions/owasp-zap-full).
     branch: main
     icon: bi bi-box-arrow-in-right
