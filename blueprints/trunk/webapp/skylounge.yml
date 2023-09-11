@@ -19,5 +19,5 @@ workflows:
         uri: # The URI to your integration tests. Example: sky-lounge/hello-app/skylounge/integration-test.yml
     params:
       build_paths: # An array of paths which trigger the build job on change. Example: ["src/**", "build.gradle", "service.yaml"]
-      main_branch_name: # The name of the main branch in this repository. Example "main"
+      main_branch_name: # The name of the main branch in this repository as an array. Example ["main"]
       registry_url: # The artifact registry url where container images are stored. Example: us-central1-docker.pkg.dev/skylounge-common/skylounge-registry
