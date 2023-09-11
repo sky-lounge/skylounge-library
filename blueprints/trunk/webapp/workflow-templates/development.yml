@@ -16,7 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY: ((registry_url))
-    needs: [unit-test]
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
