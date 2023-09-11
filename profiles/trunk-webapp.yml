@@ -1,5 +1,5 @@
 ---
-uri: sky-lounge/skylounge-library/blueprints/main-branch/webapp/blueprint.yml
+uri: sky-lounge/skylounge-library/blueprints/trunk/webapp/blueprint.yml
 workflows:
   development:
     jobs:
