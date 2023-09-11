@@ -5,4 +5,3 @@ params:
   credentials_json_secret_string: # The string used to fetch the credentials.json file. Example: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}" to fecth from GitHub Secrets
   dns_zone_name: # The zone name in Google DNS where to configure the domain mapping. Example: skyloungedev
   gcp_project: # The Google project where the Cloud Run instance will be deployed. Example: skylounge-dev
-  tf_state_bucket: # The name of the Google Cloud Storage bucket to store terraform state. Example: tfstate.skylounge.dev
