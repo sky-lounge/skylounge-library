@@ -6,8 +6,7 @@ on:
       - ((main_branch_name))
     paths: ((build_paths))
     ignore_paths:
-      - .github/development-version.txt
-      - .github/production-version.txt
+      - .github/**
   workflow_dispatch:
 jobs:
   unit-test:
