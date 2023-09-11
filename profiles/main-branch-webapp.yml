@@ -37,6 +37,8 @@ workflows:
             authenticate-to-image-repository:
               - label: gcp
                 uri: sky-lounge/skylounge-library/steps/gcp/cloud-auth/auth.yml
+                params:
+                  credentials_json_secret_string: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
             build-container-image:
               - label: gradlew
                 uri: sky-lounge/skylounge-library/steps/pack/gradlew/build.yml
@@ -51,3 +53,5 @@ workflows:
       deploy:
         - label: cloud-run
           uri: sky-lounge/skylounge-library/jobs/gcp/cloud-run/deploy/deploy.yml
+          params:
+            credentials_json_secret_string: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
