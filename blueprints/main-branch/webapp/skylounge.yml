@@ -1,0 +1,27 @@
+---
+blueprint-uri: sky-lounge/skylounge-library/blueprints/free/webapp/blueprint.yml
+workflows:
+  - workflow: development
+    jobs:
+      - job: unit-test
+        steps:
+          - step: unit-test
+            uri: # The URI to the unit-test step definition. Example: sky-lounge/skylounge-library/steps/unit-test/nginx/unit-test.yml
+      - job: build
+        steps:
+          - step: _authenticate-to-image-repository
+          - step: build-container-image
+            uri: # Enter the URI to the step definition used to build the container image for your application. Example: sky-lounge/public-skylounge-library/steps/build/pack/java/gradlew/build.yml
+          - step: push-container-image
+      - job: deploy
+        uri:
+      - job: integration-test
+        uri: # The URI to your integration tests. Example: sky-lounge/hello-app/skylounge/integration-test.yml
+    params:
+      build_paths: # An array of paths which trigger the build job on change. Example: ["src/**", "build.gradle", "service.yaml"]
+  - workflow: production
+    jobs:
+      - job: deploy
+        uri:
+params:
+  registry_url: # The artifact registry url where container images are stored. Example: us-central1-docker.pkg.dev/skylounge-common/skylounge-registry

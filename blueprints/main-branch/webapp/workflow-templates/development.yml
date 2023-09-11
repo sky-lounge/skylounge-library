@@ -1,0 +1,55 @@
+---
+name: Development
+on:
+  push:
+    branches:
+      - ((main_branch_name))
+    paths: ((build_paths))
+    ignore_paths:
+      - .github/development-version.txt
+      - .github/production-version.txt
+  workflow_dispatch:
+jobs:
+  unit-test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - skylounge-step: unit-test
+  build:
+    name: Build container image
+    permissions:
+      contents: "read"
+      id-token: "write"
+    runs-on: ubuntu-latest
+    env:
+      REGISTRY: ((registry_url))
+    needs: [unit-test]
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      - name: Set image name
+        run: |
+          echo "IMAGE_NAME=${{ env.REGISTRY }}/${{ github.event.repository.name }}:${{ github.sha }}" >> $GITHUB_ENV
+      - skylounge-step: _authenticate-to-image-repository
+      - skylounge-step: build-container-image
+      - skylounge-step: push-container-image
+  deploy: skylounge-job
+  integration-test: skylounge-job
+  artifact-version:
+    needs: integration-test
+    name: Update artifact version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v3
+      - name: Update Artifact Version
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          echo "${{ github.sha }}" > .github/development-version.txt
+          git add .github/development-version.txt
+          git commit -m "update development version: ${{ github.sha }}"
+          git pull --rebase
+          git push

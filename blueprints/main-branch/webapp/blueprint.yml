@@ -1,0 +1,11 @@
+display-name: Web Application (main branch)
+hide-in-environments:
+  - production
+tags:
+  - container-build
+weight: 1
+workflow-templates:
+  - name: development
+    uri: sky-lounge/skylounge-library/blueprints/main-branch/webapp/workflow-templates/development.yml
+    branch: main
+    icon: bi bi-code-slash

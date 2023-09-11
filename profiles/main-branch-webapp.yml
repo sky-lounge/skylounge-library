@@ -1,0 +1,53 @@
+---
+uri: github.com/sky-lounge/skylounge-library/blueprints/main-branch/webapp/blueprint.yml
+workflows:
+  development:
+    jobs:
+      unit-test:
+        - steps:
+            unit-test:
+              - label: go
+                uri: github.com/sky-lounge/skylounge-library/steps/unit-test/go/step.yml
+                params:
+                  go_version: stable
+                  check_latest: true
+              - label: gradlew
+                uri: github.com/sky-lounge/skylounge-library/steps/unit-test/gradlew/step.yml
+                params:
+                  distribution: liberica
+                  jvm_version: "17"
+              - label: maven
+                uri: github.com/sky-lounge/skylounge-library/steps/unit-test/maven/step.yml
+                params:
+                  distribution: liberica
+                  jvm_version: "17"
+              - label: nginx
+                uri: github.com/sky-lounge/skylounge-library/steps/unit-test/nginx/step.yml
+              - label: python
+                uri: github.com/sky-lounge/skylounge-library/steps/unit-test/python/step.yml
+                params:
+                  package_manager: pip
+                  python_version: "3.11"
+              - label: ruby
+                uri: github.com/sky-lounge/skylounge-library/steps/unit-test/ruby/step.yml
+                params:
+                  ruby_version: "3.2.2"
+      build:
+        - steps:
+            authenticate-to-image-repository:
+              - label: gcp
+                uri: github.com/sky-lounge/skylounge-library/steps/gcp/cloud-auth/auth.yml
+            build-container-image:
+              - label: gradlew
+                uri: github.com/sky-lounge/skylounge-library/steps/pack/gradlew/build.yml
+                params:
+                  jvm_version: 17
+                  distribution: liberica
+              - label: nginx
+                uri: github.com/sky-lounge/skylounge-library/steps/pack/nginx/build.yml
+            push-container-image:
+              - label: gcp
+                uri: github.com/sky-lounge/skylounge-library/steps/gcp/artifact-registry/push.yml
+      deploy:
+        - label: cloud-run
+          uri: github.com/sky-lounge/skylounge-library/jobs/gcp/cloud-run/deploy/deploy.yml

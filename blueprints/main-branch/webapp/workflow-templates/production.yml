@@ -1,0 +1,15 @@
+---
+name: Production
+
+on:
+  push:
+    branches:
+      - ((main_branch_name))
+    paths:
+      - .github/production-version.txt
+  workflow_run:
+    workflows: ["Promote"]
+    types: ["completed"]
+
+jobs:
+  deploy: skylounge-job
