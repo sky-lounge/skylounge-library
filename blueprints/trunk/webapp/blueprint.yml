@@ -1,4 +1,4 @@
-display-name: Web Application (trunk-based development)
+display-name: Web Application [trunk-based development]
 hide-in-environments:
   - production
 tags:

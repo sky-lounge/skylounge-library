@@ -6,7 +6,7 @@ on:
       - ((main_branch_name))
     paths: ((build_paths))
     ignore_paths:
-      - .github/**
+      - ".github/**"
   workflow_dispatch:
 jobs:
   unit-test:

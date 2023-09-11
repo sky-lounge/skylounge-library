@@ -49,7 +49,7 @@ workflows:
                 uri: sky-lounge/skylounge-library/steps/pack/nginx/build.yml
             push-container-image:
               - label: gcp
-                uri: sky-lounge/skylounge-library/steps/gcp/artifact-registry/push.yml
+                uri: sky-lounge/skylounge-library/steps/gcp/artifact-registry/push/push.yml
       deploy:
         - label: cloud-run
           uri: sky-lounge/skylounge-library/jobs/gcp/cloud-run/deploy/deploy.yml
