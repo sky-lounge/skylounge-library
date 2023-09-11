@@ -7,4 +7,4 @@ steps:
       java-version: ((jvm_version))
       cache: "gradle"
   - name: Unit test
-    run: ./gradlew test
+    run: ./gradlew clean test
