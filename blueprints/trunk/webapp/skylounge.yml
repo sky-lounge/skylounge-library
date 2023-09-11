@@ -3,13 +3,11 @@ blueprint-uri: sky-lounge/skylounge-library/blueprints/trunk/webapp/blueprint.ym
 workflows:
   - workflow: development
     jobs:
-      - job: unit-test
-        steps:
-          - step: unit-test
-            uri: # The URI to the unit-test step definition. Example: sky-lounge/skylounge-library/steps/unit-test/nginx/unit-test.yml
       - job: build
         steps:
           - step: authenticate-to-image-repository
+          - step: unit-test
+            uri: # The URI to the unit-test step definition. Example: sky-lounge/skylounge-library/steps/unit-test/nginx/unit-test.yml
           - step: build-container-image
             uri: # Enter the URI to the step definition used to build the container image for your application. Example: sky-lounge/public-skylounge-library/steps/build/pack/java/gradlew/build.yml
           - step: push-container-image

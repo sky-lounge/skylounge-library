@@ -3,8 +3,13 @@ uri: sky-lounge/skylounge-library/blueprints/trunk/webapp/blueprint.yml
 workflows:
   development:
     jobs:
-      unit-test:
+      build:
         - steps:
+            authenticate-to-image-repository:
+              - label: gcp
+                uri: sky-lounge/skylounge-library/steps/gcp/cloud-auth/auth.yml
+                params:
+                  credentials_json_secret_string: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
             unit-test:
               - label: go
                 uri: sky-lounge/skylounge-library/steps/unit-test/go/step.yml
@@ -32,13 +37,6 @@ workflows:
                 uri: sky-lounge/skylounge-library/steps/unit-test/ruby/step.yml
                 params:
                   ruby_version: "3.2.2"
-      build:
-        - steps:
-            authenticate-to-image-repository:
-              - label: gcp
-                uri: sky-lounge/skylounge-library/steps/gcp/cloud-auth/auth.yml
-                params:
-                  credentials_json_secret_string: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
             build-container-image:
               - label: gradlew
                 uri: sky-lounge/skylounge-library/steps/pack/gradlew/build.yml
