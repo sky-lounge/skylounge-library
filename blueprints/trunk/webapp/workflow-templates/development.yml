@@ -2,8 +2,7 @@
 name: Development
 on:
   push:
-    branches:
-      - main
+    branches: ((main_branch_name))
     # paths: ((build_paths))
     ignore_paths:
       - ".github/**"
