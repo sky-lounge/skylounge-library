@@ -31,9 +31,9 @@ jobs:
       - name: Set image name
         run: |
           echo "IMAGE_NAME=${{ env.REGISTRY }}/${{ github.event.repository.name }}:${{ github.sha }}" >> $GITHUB_ENV
-      - skylounge-step: authenticate-to-image-repository
-      - skylounge-step: build-container-image
-      - skylounge-step: push-container-image
+      # - skylounge-step: authenticate-to-image-repository
+      # - skylounge-step: build-container-image
+      # - skylounge-step: push-container-image
   # deploy: skylounge-job
   # integration-test: skylounge-job
   # artifact-version:
