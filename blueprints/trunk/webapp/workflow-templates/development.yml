@@ -34,21 +34,21 @@ jobs:
       - skylounge-step: authenticate-to-image-repository
       - skylounge-step: build-container-image
       - skylounge-step: push-container-image
-  deploy: skylounge-job
-  integration-test: skylounge-job
-  artifact-version:
-    needs: integration-test
-    name: Update artifact version
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout branch
-        uses: actions/checkout@v3
-      - name: Update Artifact Version
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          echo "${{ github.sha }}" > .github/development-version.txt
-          git add .github/development-version.txt
-          git commit -m "update development version: ${{ github.sha }}"
-          git pull --rebase
-          git push
+  # deploy: skylounge-job
+  # integration-test: skylounge-job
+  # artifact-version:
+  #   needs: [integration-test]
+  #   name: Update artifact version
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout branch
+  #       uses: actions/checkout@v3
+  #     - name: Update Artifact Version
+  #       run: |
+  #         git config user.name "GitHub Actions Bot"
+  #         git config user.email "<>"
+  #         echo "${{ github.sha }}" > .github/development-version.txt
+  #         git add .github/development-version.txt
+  #         git commit -m "update development version: ${{ github.sha }}"
+  #         git pull --rebase
+  #         git push
