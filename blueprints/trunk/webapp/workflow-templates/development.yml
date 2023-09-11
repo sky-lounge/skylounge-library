@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - ((main_branch_name))
-    paths: ((build_paths))
+    # paths: ((build_paths))
     ignore_paths:
       - ".github/**"
   workflow_dispatch:
