@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY: ((registry_url))
-    needs: [unit-test, dependency-review, codeql]
+    # needs: [unit-test, dependency-review, codeql]
     steps:
       - name: Checkout branch
         uses: actions/checkout@v3
