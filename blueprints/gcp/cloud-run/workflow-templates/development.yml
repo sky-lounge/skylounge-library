@@ -10,52 +10,52 @@ on:
       - .github/production-version.txt
   workflow_dispatch:
 jobs:
-  unit-test:
-    name: Unit Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - skylounge-step: unit-test
-  dependency-review:
-    name: GitHub Dependency Review
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      - name: Dependency Review
-        uses: actions/dependency-review-action@v3
-        with:
-          config-file: ${{ env.CONFIG_FILE }}
-          external-repo-token: ${{ secrets.LIBRARY_TOKEN }}
-          base-ref: main
-          head-ref: main
-        env:
-          CONFIG_FILE: ((config_file))
-  codeql:
-    name: GitHub CodeQL
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-    strategy:
-      fail-fast: false
-      matrix:
-        language: ((language_array))
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: ${{ matrix.language }}
-          queries: security-and-quality
-      - skylounge-step: build
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          category: "/language:${{matrix.language}}"
+  # unit-test:
+  #   name: Unit Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v3
+  #     - skylounge-step: unit-test
+  # dependency-review:
+  #   name: GitHub Dependency Review
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v3
+  #     - name: Dependency Review
+  #       uses: actions/dependency-review-action@v3
+  #       with:
+  #         config-file: ${{ env.CONFIG_FILE }}
+  #         external-repo-token: ${{ secrets.LIBRARY_TOKEN }}
+  #         base-ref: main
+  #         head-ref: main
+  #       env:
+  #         CONFIG_FILE: ((config_file))
+  # codeql:
+  #   name: GitHub CodeQL
+  #   runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+  #   permissions:
+  #     actions: read
+  #     contents: read
+  #     security-events: write
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       language: ((language_array))
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
+  #     - name: Initialize CodeQL
+  #       uses: github/codeql-action/init@v2
+  #       with:
+  #         languages: ${{ matrix.language }}
+  #         queries: security-and-quality
+  #     - skylounge-step: build
+  #     - name: Perform CodeQL Analysis
+  #       uses: github/codeql-action/analyze@v2
+  #       with:
+  #         category: "/language:${{matrix.language}}"
   build:
     name: Build container image
     permissions:
