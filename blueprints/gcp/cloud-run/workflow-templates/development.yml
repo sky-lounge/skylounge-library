@@ -73,7 +73,7 @@ jobs:
           echo "IMAGE_NAME=${{ env.REGISTRY }}/${{ github.event.repository.name }}:${{ github.sha }}" >> $GITHUB_ENV
       - id: "auth"
         name: "Authenticate to Google Cloud"
-        uses: "google-github-actions/auth@v0"
+        uses: "google-github-actions/auth@v2"
         with:
           credentials_json: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
       - skylounge-step: build-container-image
@@ -100,11 +100,11 @@ jobs:
           GCP_PROJECT: ((gcp_project))
       - id: auth
         name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
       - id: deploy
-        uses: google-github-actions/deploy-cloudrun@v0
+        uses: google-github-actions/deploy-cloudrun@v2
         with:
           metadata: ./service.yaml
   configure-access:
@@ -124,7 +124,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
       - id: auth
         name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v0
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: "${{ secrets.GOOGLE_CREDENTIALS_DEV }}"
       - name: Prepare Backend Config
