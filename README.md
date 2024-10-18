@@ -1,1 +1,1 @@
-# private-skylounge-library
+# skylounge-library
