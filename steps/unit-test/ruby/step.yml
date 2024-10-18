@@ -1,7 +1,7 @@
 ---
 steps:
   - name: Set up Ruby
-    uses: actions/setup-ruby@v4
+    uses: ruby/setup-ruby@v1
     with:
       ruby-version: ((ruby_version))
       bundler_cache: true
