@@ -17,7 +17,7 @@ jobs:
       route: ${{ steps.deploy.outputs.route }}
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - skylounge-step: _pre-deploy
       - skylounge-step: deploy
   integration-test: skylounge-job
@@ -28,7 +28,7 @@ jobs:
       issues: write
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Run OWASP Zap full scan
         uses: zaproxy/action-full-scan@v0.4.0
         id: scan
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Update Artifact Version
         run: |
           git checkout -b deployed_version_tracking

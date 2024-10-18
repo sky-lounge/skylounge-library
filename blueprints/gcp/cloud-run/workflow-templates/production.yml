@@ -20,7 +20,7 @@ jobs:
       REGISTRY: ((registry_url))
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set image and service name
         run: |
           deploy_sha=$(cat production-version.txt | xargs)
@@ -48,12 +48,12 @@ jobs:
         working-directory: public-skylounge-library/terraform/gcp/cloud-run/domain-mapping
     steps:
       - name: Checkout terraform
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: sky-lounge/public-skylounge-library
           ref: main
           path: public-skylounge-library
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
       - id: auth
         name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
@@ -89,4 +89,3 @@ jobs:
           CLOUD_RUN_INVOKER: ((_cloud_run_invoker))
       - name: Terraform Apply
         run: terraform apply -auto-approve
-# trigger 2

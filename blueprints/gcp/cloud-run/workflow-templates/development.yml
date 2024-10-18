@@ -67,7 +67,7 @@ jobs:
     # needs: [unit-test, dependency-review, codeql]
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set image name
         run: |
           echo "IMAGE_NAME=${{ env.REGISTRY }}/${{ github.event.repository.name }}:${{ github.sha }}" >> $GITHUB_ENV
@@ -90,7 +90,7 @@ jobs:
       REGISTRY: ((registry_url))
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set image and service name
         run: |
           sed -i -e 's%${IMAGE_NAME}%'"$IMAGE_NAME"'%g' ./service.yaml
@@ -116,12 +116,12 @@ jobs:
         working-directory: public-skylounge-library/terraform/gcp/cloud-run/domain-mapping
     steps:
       - name: Checkout terraform
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: sky-lounge/public-skylounge-library
           ref: main
           path: public-skylounge-library
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
       - id: auth
         name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
@@ -164,7 +164,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Update Artifact Version
         run: |
           git config user.name "GitHub Actions Bot"

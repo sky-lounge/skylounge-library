@@ -16,6 +16,6 @@ jobs:
       route: ${{ steps.deploy.outputs.route }}
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - skylounge-step: _pre-deploy
       - skylounge-step: deploy
